@@ -1,8 +1,9 @@
-# WikiSearch
-Sample app in Symfony2 to search Wikipedia and store favourites in database using MySQL.
+WikiSearch
+====
+> Sample app in Symfony2 to search Wikipedia and store favourites in database using MySQL.
 
-###Deployment Instructions
-
+Deployment Instructions
+----
 ```
 git clone https://github.com/crypton480/WikiSearch
 cd /path/to/WikiSearch/
