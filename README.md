@@ -18,6 +18,7 @@ Navigate to http://localhost:8000/config.php and follow instructions to configur
 cd /path/to/WikiSearch
 php app/console doctrine:database:create
 php app/console doctrine:generate:entities AppBundle
+php app/console doctrine:schema:update --force
 php app/console server:run
 ```
 Navigate to http://localhost:8000/ to run application. Enter search terms. Click on star to add/remove to favorites. Click hyperlink on the bottom of the page to see all favorites. 
