@@ -1,0 +1,15 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+index:
+    path: /
+    defaults: { _controller: AppBundle:Default:index}
+
+search:
+    path: /search/
+    defaults: { _controller: AppBundle:Default:search}
+
+setFavorite:
+    path: /setFavorite/{title}/
+    defaults: { _controller:AppBundle:Default:setFavorite}

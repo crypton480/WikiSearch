@@ -1,0 +1,95 @@
+<head>
+    <title>Wikipedia Search</title>
+    <style>
+        body{
+            font: 16px;
+        }
+        .headerImage{
+            width:auto;
+            height:135px;
+        }
+        .outer {
+            margin: 0 auto; /*center*/
+            width: 100%; /*just to display the example*/
+        }
+
+        .inner {
+            /*or move the whole container 50px to the right side*/
+            margin-left:25px; 
+            margin-right:-25px;
+            color: DarkSlateGray;
+        }
+        .imageLink{
+            cursor:pointer;
+        }
+        
+    </style>
+    <script>
+    function changeFav(title)
+    {
+        var ajax = new XMLHttpRequest();
+
+        ajax.onreadystatechange=function(){
+            if (ajax.readyState==4 && ajax.status==200){
+                if(ajax.responseText == "Removed"){
+                    {% image '@AppBundle/Resources/img/StarEmpty.png'  output="images/StarEmpty.png" %}
+                    document.getElementById(title).src = "{{ asset_url }}"
+                    {% endimage %}
+                }
+                else if(ajax.responseText == "Added"){
+                    {% image '@AppBundle/Resources/img/StarFull.png'  output="images/StarFull.png" %}
+                    document.getElementById(title).src = "{{ asset_url }}"
+                    {% endimage %}
+                }
+            }
+        }
+        ajax.open('GET',"/setFavorite/"+title, true);
+        ajax.send();
+    }
+    </script>
+
+</head>
+<body>
+{% image '@AppBundle/Resources/img/wikipedia.jpg'  output="images/wikipedia.jpg" %}
+<img src="{{ asset_url }}" class="headerImage">
+{% endimage %}
+
+{% form_theme form 'form_table_layout.html.twig' %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{% if error != "" %}
+    {{ form_end(form) }}
+    <HR>
+    {{ error }}
+{% else %}
+    <INPUT TYPE=HIDDEN NAME=sroffset VALUE={{ sroffset }}>
+    {% if entries|length > 0 %}
+        <HR>
+        <INPUT TYPE=SUBMIT NAME=prev VALUE=Prev> <INPUT TYPE=SUBMIT NAME=next VALUE=Next>
+    {% endif %}
+    {{ form_end(form) }}
+    <div class='outer'><ul>
+    {% for entry in entries %}
+
+        <li><a href={{ entry.link }} target=_blank>{{ entry.title }}</a> 
+        
+        <div style="display:inline" onclick="changeFav('{{entry.raw}}')";>
+        {% if entry.isFav != 0%}
+            {% image '@AppBundle/Resources/img/StarFull.png'  output="images/StarFull.png" %}
+            <img src="{{ asset_url }}" id='{{entry.raw}}' class="imageLink" height=16 width=16>
+            {% endimage %}
+        {% else %}
+            {% image '@AppBundle/Resources/img/StarEmpty.png'  output="images/StarEmpty.png" %}
+            <img src="{{ asset_url }}" id='{{entry.raw}}' class="imageLink" height=16 width=16>
+            {% endimage %}       
+        {% endif %}
+        </div>
+        <div class='inner'>{{ entry.snippet }}</div>
+    {% endfor %}
+    </ul>
+    {% if entries|length > 0 %}
+    Showing results {{sroffset + 1}} to {{sroffset + 10}}
+    {% endif %}
+{% endif %}
+<br><a href='../allfavs/'>All favorites</a>
+</body>

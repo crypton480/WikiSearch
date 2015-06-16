@@ -1,6 +1,9 @@
 WikiSearch
-====
-> Sample app in Symfony2 to search Wikipedia and store favourites in database using MySQL.
+==========
+
+> A Symfony project created on June 14, 2015, 4:30 pm.
+
+Sample app in Symfony2 to search Wikipedia and store favourites in database using MySQL.
 
 Deployment Instructions
 ----
@@ -17,4 +20,5 @@ php app/console doctrine:generate:entities AppBundle
 php app/console server:run
 ```
 Navigate to http://localhost:8000/ to run application. Enter search terms. Click on star to add/remove to favorites. Click hyperlink on the bottom of the page to see all favorites. 
+
 
