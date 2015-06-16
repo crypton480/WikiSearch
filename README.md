@@ -7,6 +7,7 @@ Sample app in Symfony2 to search Wikipedia and store favourites in database usin
 
 Deployment Instructions
 ----
+This assumes that php (>= version 5.4) is installed on your machine. The app uses the built in php webserver.  
 ```
 git clone https://github.com/crypton480/WikiSearch
 cd /path/to/WikiSearch/
